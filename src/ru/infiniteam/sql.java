@@ -3,40 +3,40 @@ package ru.infiniteam;
 import java.sql.*;
 
 /**
- * Created by Диана on 07.04.2017.
+ * Created by Р”РёР°РЅР° on 07.04.2017.
  */
 public class sql {
     public static Connection conn;
     public static Statement statmt;
     public static ResultSet resSet;
 
-    // --------ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ--------
+    // --------РџРћР”РљР›Р®Р§Р•РќРР• Рљ Р‘РђР—Р• Р”РђРќРќР«РҐ--------
     public static void Conn() throws ClassNotFoundException, SQLException {
         conn = null;
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:TEST1.s3db");
 
-        System.out.println("База Подключена!");
+        System.out.println("Р‘Р°Р·Р° РџРѕРґРєР»СЋС‡РµРЅР°!");
     }
 
-    // --------Создание таблицы--------
+    // --------РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹--------
     public static void CreateDB() throws ClassNotFoundException, SQLException {
         statmt = conn.createStatement();
         statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
 
-        System.out.println("Таблица создана или уже существует.");
+        System.out.println("РўР°Р±Р»РёС†Р° СЃРѕР·РґР°РЅР° РёР»Рё СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.");
     }
 
-    // --------Заполнение таблицы--------
+    // --------Р—Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹--------
     public static void WriteDB() throws SQLException {
         statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Petya', 125453); ");
         statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Vasya', 321789); ");
         statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Masha', 456123); ");
 
-        System.out.println("Таблица заполнена");
+        System.out.println("РўР°Р±Р»РёС†Р° Р·Р°РїРѕР»РЅРµРЅР°");
     }
 
-    // -------- Вывод таблицы--------
+    // -------- Р’С‹РІРѕРґ С‚Р°Р±Р»РёС†С‹--------
     public static void ReadDB() throws ClassNotFoundException, SQLException {
         resSet = statmt.executeQuery("SELECT * FROM users");
 
@@ -50,15 +50,15 @@ public class sql {
             System.out.println();
         }
 
-        System.out.println("Таблица выведена");
+        System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
     }
 
-    // --------Закрытие--------
+    // --------Р—Р°РєСЂС‹С‚РёРµ--------
     public static void CloseDB() throws ClassNotFoundException, SQLException {
         conn.close();
         statmt.close();
         resSet.close();
 
-        System.out.println("Соединения закрыты");
+        System.out.println("РЎРѕРµРґРёРЅРµРЅРёСЏ Р·Р°РєСЂС‹С‚С‹");
     }
 }
