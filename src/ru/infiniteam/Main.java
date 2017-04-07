@@ -13,6 +13,9 @@ public class Main {
         - get block (id)
         - get commands for this client
         - upload block to server (if command received)
+        -------
+        For server:
+        - Get last block in chain
          */
     }
 }
