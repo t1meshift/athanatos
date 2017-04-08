@@ -1,9 +1,6 @@
 package ru.infiniteam;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.ArrayList;
 
 import static ru.infiniteam.Constants.*;
@@ -24,13 +21,13 @@ public class FileIO {
         }
     }
 
-    public Block readBlock(){
-        Block res = null;
-        //if (tprev_block_hash == null) {tprev_block_hash = "0";}
+    public byte[] readChunk(){
         ArrayList<Byte> data = new ArrayList<>();
-        for (int i = 0; i < BLOCK_SIZE; ++i){
+        for (int i = 0; i < BLOCK_SIZE ; ++i){
             try {
                 data.add(in.readByte());
+            } catch (EOFException a) {
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,8 +36,6 @@ public class FileIO {
         for(int i = 0; i < data.size(); i++) {
             bdata[i] = data.get(i).byteValue();
         }
-        //res = new Block(bdata, tprev_block_hash);
-        //tprev_block_hash = res.block_hash;
-        return (res);
+        return (bdata);
     }
 }
