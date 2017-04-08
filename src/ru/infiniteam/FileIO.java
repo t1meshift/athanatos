@@ -14,6 +14,7 @@ import static ru.infiniteam.Constants.*;
  */
 public class FileIO {
     RandomAccessFile in;
+    String tprev_block_hash;
 
     FileIO(String name, String mode){
         try {
@@ -25,6 +26,7 @@ public class FileIO {
 
     public Block readBlock(){
         Block res = null;
+        //if (tprev_block_hash == null) {tprev_block_hash = "0";}
         ArrayList<Byte> data = new ArrayList<>();
         for (int i = 0; i < BLOCK_SIZE; ++i){
             try {
@@ -33,7 +35,12 @@ public class FileIO {
                 e.printStackTrace();
             }
         }
-        data.toArray().
+        byte[] bdata = new byte[data.size()];
+        for(int i = 0; i < data.size(); i++) {
+            bdata[i] = data.get(i).byteValue();
+        }
+        //res = new Block(bdata, tprev_block_hash);
+        //tprev_block_hash = res.block_hash;
         return (res);
     }
 }
