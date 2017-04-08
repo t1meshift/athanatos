@@ -10,5 +10,6 @@
     <orderEntry type="library" name="BouncyCastle" level="project" />
     <orderEntry type="library" name="BouncyCastle" level="project" />
     <orderEntry type="library" name="sqlite-jdbc" level="project" />
+    <orderEntry type="library" name="jasypt" level="project" />
   </component>
 </module>
