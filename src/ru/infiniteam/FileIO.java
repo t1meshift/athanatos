@@ -11,7 +11,7 @@ import static ru.infiniteam.Constants.*;
  */
 public class FileIO {
     RandomAccessFile in;
-    String tprev_block_hash;
+    //String tprev_block_hash;
 
     FileIO(String name, String mode){
         try {
