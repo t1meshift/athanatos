@@ -1,13 +1,10 @@
 package ru.infiniteam;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 /**
- * Created by t1meshft on 07.04.2017.
+ * Created by boriswinner on 07.04.2017.
  */
 public class NetClient {
     protected String address;
@@ -18,24 +15,43 @@ public class NetClient {
     protected OutputStream sout;
     DataInputStream in;
     DataOutputStream out;
+    ObjectOutputStream serializer;
+    ObjectInputStream deserializer;
 
-    NetClient(String address, final int PORT){
+    NetClient(String address, final int port){
         this.address = address;
-        this.port = PORT;
+        this.port = port;
     }
 
     public int Connect(){
         try{
             this.ipAddress = InetAddress.getByName(this.address);
             this.socket = new Socket(this.ipAddress, this.port);
+
+            //для передачи по сети строк, примитивов и т.п.
             this.sin = this.socket.getInputStream();
             this.sout = this.socket.getOutputStream();
             this.in = new DataInputStream(this.sin);
             this.out = new DataOutputStream(this.sout);
+
+            //для передачи объектов по сети
+            this.serializer = new ObjectOutputStream(this.socket.getOutputStream());
+            this.deserializer = new ObjectInputStream(this.socket.getInputStream());
+
             System.out.println("Connected");
             return(0);
         } catch (Exception x) {return(-1);}
     }
 
+    public int SendBlock(Block ablock){
+        try {
+            serializer.writeObject(ablock);
+            serializer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return (-1);
+        }
+        return (0);
+    }
 
 }
