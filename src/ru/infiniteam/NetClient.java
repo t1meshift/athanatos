@@ -7,14 +7,10 @@ import java.net.Socket;
  * Created by boriswinner on 07.04.2017.
  */
 /*
-        TODO:
-        So, I will have to go at 7:00 am and I must leave TODO list in case someone doesn't read Trello board
-        -------
-
-        Commands to be received:
-        - get last block
-        - get block by id
-        - upload block to server
+        Commands to be sent:
+        - get last block -- check! TODO TEST
+        - get block by id -- check! TODO TEST
+        - upload block to server -- check! TODO TEST
 
          */
 public class NetClient {
@@ -29,7 +25,7 @@ public class NetClient {
     ObjectOutputStream serializer;
     ObjectInputStream deserializer;
 
-    NetClient(String address, final int port){
+    NetClient(String address, int port){
         this.address = address;
         this.port = port;
     }
@@ -94,7 +90,45 @@ public class NetClient {
     }
     public Block getBlock(String block_hash)
     {
-        return null; //FIXME
+        String req = "getBlock "+block_hash;
+        try {
+            out.writeChars(req);
+            out.flush();
+            return receiveBlock();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public Block getLastBlock()
+    {
+        String req = "getLastBlock";
+        try {
+            out.writeChars(req);
+            out.flush();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return null; //IDEA, c'mon, what's wrong with u?
+    }
+    public int uploadBlock(Block block)
+    {
+        try {
+            out.writeChars("uploadBlock");
+            out.flush();
+            String resp = in.readUTF();
+            if (resp != "ok")
+                return -1;
+            sendBlock(block);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return -1;
+        }
+        return -100500; //IDEA, c'mon, what's wrong with u?
     }
 
 }

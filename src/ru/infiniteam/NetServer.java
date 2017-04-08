@@ -82,4 +82,21 @@ public class NetServer {
             e.printStackTrace();
         }
     }
+    public void receiveCmds()
+    {
+        try {
+            String request = in.readUTF();
+            String[] req = request.split(" ");
+            switch (req[0])
+            {
+                case "getBlock":
+                    //TODO get block from DB!!!!!!!!
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
