@@ -23,7 +23,7 @@ public class NetClient {
         this.port = port;
     }
 
-    public int Connect(){
+    public void Connect(){
         try{
             this.ipAddress = InetAddress.getByName(this.address);
             this.socket = new Socket(this.ipAddress, this.port);
@@ -39,8 +39,7 @@ public class NetClient {
             this.deserializer = new ObjectInputStream(this.socket.getInputStream());
 
             System.out.println("Connected");
-            return(0);
-        } catch (Exception x) {return(-1);}
+        }catch (Exception e) {e.printStackTrace();}
     }
 
     public int SendBlock(Block ablock){
