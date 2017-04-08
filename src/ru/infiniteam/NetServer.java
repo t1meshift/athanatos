@@ -68,4 +68,18 @@ public class NetServer {
         }
         return t;
     }
+
+    public void CloseConnection(){
+        try {
+            sin.close();
+            sout.close();
+            in.close();
+            out.close();
+            serializer.close();
+            deserializer.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
