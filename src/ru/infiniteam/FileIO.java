@@ -11,11 +11,10 @@ import static ru.infiniteam.Constants.*;
  */
 public class FileIO {
     RandomAccessFile in;
-    //String tprev_block_hash;
 
     FileIO(String name, String mode){
         try {
-            this.in = new RandomAccessFile(new File("name"),"mode");
+            this.in = new RandomAccessFile(new File(name),mode);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,4 +37,5 @@ public class FileIO {
         }
         return (bdata);
     }
+
 }

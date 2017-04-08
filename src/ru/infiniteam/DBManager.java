@@ -8,6 +8,5 @@ public class DBManager {
     public static BlockchainDB get() {
         return database;
     }
-
     private static BlockchainDB database = new BlockchainDB(DB_NAME);
 }
