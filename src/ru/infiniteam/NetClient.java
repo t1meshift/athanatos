@@ -47,6 +47,7 @@ public class NetClient {
             serializer.writeObject(ablock);
             serializer.flush();
         } catch (IOException e) {
+            System.out.println("IOExc");
             e.printStackTrace();
             return (-1);
         }

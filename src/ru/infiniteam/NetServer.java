@@ -43,14 +43,17 @@ public class NetServer {
         } catch(Exception x) {return (-1);}
     }
 
-    public Block ReceiveBlock(){
+    public Block ReceiveBlock() {
+        Block t = null;
         try {
-            return ((Block)deserializer.readObject());
+            t = (Block) deserializer.readObject();
         } catch (IOException e) {
+            System.out.println("IO");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            System.out.println("ClNotFnd");
             e.printStackTrace();
         }
-        return null;
+        return t;
     }
 }
