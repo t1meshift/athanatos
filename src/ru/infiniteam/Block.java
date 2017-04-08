@@ -5,9 +5,9 @@ import org.bouncycastle.jcajce.provider.digest.SHA3;
 import java.sql.Timestamp;
 
 /**
- * Created by Диана (actually t1meshift) on 08.04.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅ (actually t1meshift) on 08.04.2017.
  */
-public class Block
+public class Block implements java.io.Serializable
 {
     protected Timestamp timestamp;
     protected byte[] data;
