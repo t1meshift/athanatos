@@ -43,6 +43,18 @@ public class NetServer {
         } catch(Exception x) {return (-1);}
     }
 
+    public int SendBlock(Block ablock){
+        try {
+            serializer.writeObject(ablock);
+            serializer.flush();
+        } catch (IOException e) {
+            System.out.println("IOExc");
+            e.printStackTrace();
+            return (-1);
+        }
+        return (0);
+    }
+
     public Block ReceiveBlock() {
         Block t = null;
         try {

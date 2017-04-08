@@ -54,4 +54,18 @@ public class NetClient {
         return (0);
     }
 
+    public Block ReceiveBlock() {
+        Block t = null;
+        try {
+            t = (Block) deserializer.readObject();
+        } catch (IOException e) {
+            System.out.println("IO");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("ClNotFnd");
+            e.printStackTrace();
+        }
+        return t;
+    }
+
 }
