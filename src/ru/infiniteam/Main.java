@@ -2,9 +2,9 @@ package ru.infiniteam;
 
 import java.util.Calendar;
 
-public class Main {
+import static ru.infiniteam.Constants.*;
 
-    public static final int PORT = 8841;
+public class Main {
 
     public static void main(String[] args) {
         //test server

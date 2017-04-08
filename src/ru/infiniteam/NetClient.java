@@ -11,14 +11,11 @@ import java.net.Socket;
         So, I will have to go at 7:00 am and I must leave TODO list in case someone doesn't read Trello board
         -------
 
-        Commands to be received by server:
+        Commands to be received:
         - get last block
         - get block by id
+        - upload block to server
 
-        by client:
-        - download block by id
-        - upload block to server (if command received)
-        - get commands for this client
          */
 public class NetClient {
     protected String address;
