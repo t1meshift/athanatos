@@ -90,8 +90,11 @@ public class NetServer {
             switch (req[0])
             {
                 case "getBlock":
-                    //TODO get block from DB!!!!!!!!
+                    serializer.writeObject(DBManager.get().readValue(req[1]));
+                    //TODO if not found then find it at network.
+                    serializer.flush();
                     break;
+                case "getLastBlock":
             }
         }
         catch (Exception e)

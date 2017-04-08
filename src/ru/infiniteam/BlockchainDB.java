@@ -16,7 +16,7 @@ public class BlockchainDB {
             Class.forName("org.sqlite.JDBC");
             this.conn = DriverManager.getConnection("jdbc:sqlite:"+filename); //DB file name
             statmt = conn.createStatement();
-            statmt.execute("CREATE TABLE if not exists 'blocks' ('timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT PRIMARY KEY, 'prev_block_hash' TEXT NOT NULL);");
+            statmt.execute("CREATE TABLE if not exists 'blocks' ('id' INTEGER PRIMARY KEY, 'timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT UNIQUE KEY, 'prev_block_hash' TEXT NOT NULL);");
 
         }
         catch(Exception e)
