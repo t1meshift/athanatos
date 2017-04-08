@@ -13,12 +13,12 @@ public class Main {
         System.out.println(received.data[1]);
 
         NetClient clt = new NetClient("127.0.0.1",8841);
-        clt.Connect();
         byte[] test = {9,8};
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
         Block t = new Block(currentTimestamp,test,"1","2","3");
+        clt.Connect();
         clt.SendBlock(t);
         //TODO TEST Blockchain classes!!!!!!!!!!
         // yours, t1meshift.
