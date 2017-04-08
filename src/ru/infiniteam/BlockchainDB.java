@@ -15,7 +15,7 @@ public class BlockchainDB {
         try {
             Statement statmt;
             Class.forName("org.sqlite.JDBC");
-            this.conn = DriverManager.getConnection("jdbc:sqlite:"+db_name);//здесь находится название файла с БД
+            this.conn = DriverManager.getConnection("jdbc:sqlite:"+db_name); //DB file name
             statmt = conn.createStatement();
             statmt.execute("CREATE TABLE if not exists 'blocks' ('timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT PRIMARY KEY, 'prev_block_hash' TEXT NOT NULL);");
 

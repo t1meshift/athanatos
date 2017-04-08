@@ -23,7 +23,7 @@ public class NetServer {
         this.port = PORT;
     }
 
-    public int Establish(){
+    public int establish(){
         try {
             this.ss = new ServerSocket(this.port);
             System.out.println("Waiting for a client...");
@@ -43,7 +43,7 @@ public class NetServer {
         } catch(Exception x) {return (-1);}
     }
 
-    public int SendBlock(Block ablock){
+    public int sendBlock(Block ablock){
         try {
             serializer.writeObject(ablock);
             serializer.flush();
@@ -55,7 +55,7 @@ public class NetServer {
         return (0);
     }
 
-    public Block ReceiveBlock() {
+    public Block receiveBlock() {
         Block t = null;
         try {
             t = (Block) deserializer.readObject();
@@ -69,7 +69,7 @@ public class NetServer {
         return t;
     }
 
-    public void CloseConnection(){
+    public void closeConnection(){
         try {
             sin.close();
             sout.close();
