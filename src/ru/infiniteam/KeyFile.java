@@ -7,21 +7,26 @@ import java.util.ArrayList;
  */
 public class KeyFile {
     private String fileName;
-    private int size;
-    private ArrayList<String> blocks;
-    private ArrayList<String> passwords;
+    private ArrayList<BlockPair> blocks;
+
+    class BlockPair {
+        public String block_hash;
+        public String password;
+        BlockPair(String block_hash, String password)
+        {
+            this.block_hash = block_hash;
+            this.password = password;
+        }
+    }
 
     KeyFile(String fileName)
     {
         this.fileName = fileName;
-        this.size = 0;
     }
 
     public void addKeyPair(Block block, String password)
     {
-        blocks.add(block.block_hash);
-        passwords.add(password);
-        size++;
+        blocks.add(new BlockPair(block.block_hash, password));
     }
 
     public String getFileName()
@@ -29,13 +34,23 @@ public class KeyFile {
         return fileName;
     }
 
+    public BlockPair getBlockPair(int index)
+    {
+        return blocks.get(index);
+    }
+
+    public ArrayList<BlockPair> getKeys()
+    {
+        return blocks;
+    }
+
     public String toString()
     {
         String result = fileName + "\n" +
-                String.valueOf(size) + "\n";
-        for (int i = 0; i < size; i++)
+                String.valueOf(blocks.size()) + "\n";
+        for (BlockPair currBlock : blocks)
         {
-            result += blocks.get(i) + " " + passwords.get(i) + "\n";
+            result += currBlock.block_hash + " " + currBlock.password + "\n";
         }
         return result;
     }

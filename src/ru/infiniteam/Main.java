@@ -7,6 +7,7 @@ import static ru.infiniteam.Constants.*;
 public class Main {
 
     public static void main(String[] args) {
+        /*
         //test server
         NetServer srv = new NetServer(PORT);
         srv.establish();
@@ -24,5 +25,11 @@ public class Main {
         clt.sendBlock(t);
         Block received1 = clt.receiveBlock();
         System.out.println(received1.data[1]);
+        */
+        FileIO file = new FileIO("test.txt", "r");
+        file.readChunk();
+        System.out.println(file.isEOF());
+        file.readChunk();
+        System.out.println(file.isEOF());
     }
 }

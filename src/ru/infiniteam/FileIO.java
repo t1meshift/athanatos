@@ -10,21 +10,32 @@ import static ru.infiniteam.Constants.*;
  * Created by Boris on 08.04.2017.
  */
 public class FileIO {
-    RandomAccessFile in;
+    RandomAccessFile file;
 
     FileIO(String name, String mode){
         try {
-            this.in = new RandomAccessFile(new File(name),mode);
+            this.file = new RandomAccessFile(new File(name),mode);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    boolean isEOF()
+    {
+        boolean result = true;
+        try
+        {
+            result = file.getFilePointer() >= file.length();
+        }
+        catch (Exception e){}
+        return result;
     }
 
     public byte[] readChunk(){
         ArrayList<Byte> data = new ArrayList<>();
         for (int i = 0; i < BLOCK_SIZE ; ++i){
             try {
-                data.add(in.readByte());
+                data.add(file.readByte());
             } catch (EOFException a) {
                 break;
             } catch (IOException e) {
