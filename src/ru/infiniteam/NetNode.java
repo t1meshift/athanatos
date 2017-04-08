@@ -17,6 +17,13 @@ public class NetNode {
         }
     }
 
+    /*public class ClientRunnable implements Runnable {
+        @Override
+        public void run() {
+            NetClient clt = new NetClient()
+        }
+    }*/
+
     NetNode(){
         Thread sThread = new Thread(new ServerRunnable());
         sThread.start();
