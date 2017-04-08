@@ -9,6 +9,7 @@ import java.sql.Timestamp;
  */
 public class Block implements java.io.Serializable
 {
+    public final int BLOCK_SIZE = 16;
     protected Timestamp timestamp;
     protected byte[] data;
     protected String data_hash;
