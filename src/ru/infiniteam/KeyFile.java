@@ -61,4 +61,18 @@ public class KeyFile {
         out.writeString(res);
     }
 
+    public KeyFile readFromFile(String file){
+        KeyFile res = null;
+        FileIO in = new FileIO(file,"in");
+        this.fileName = in.readString();
+        for (BlockPair currBlock : blocks)
+        {
+            String t = in.readString();
+            String s1 = t.split(" ")[0];
+            String s2 = t.split(" ")[1];
+            BlockPair bt = new BlockPair(s1,s2);
+            blocks.add(bt);
+        }
+        return (res);
+    }
 }

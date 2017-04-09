@@ -65,6 +65,15 @@ public class FileIO {
         }
     }
 
+    public String readString(){
+        try {
+            return(file.readUTF());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void close(){
         try {
             file.close();
