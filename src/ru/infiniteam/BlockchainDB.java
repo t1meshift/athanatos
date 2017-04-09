@@ -74,7 +74,7 @@ public class BlockchainDB {
         return null; //filler for IDE
     }
     void writeValue(Block val){
-        //TODO This function must write row with key (block_id)
+        //This function must write row with key (block_id)
         try
         {
             Blob data = new SerialBlob(val.data);
