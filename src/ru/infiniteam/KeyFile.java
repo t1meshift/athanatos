@@ -34,6 +34,10 @@ public class KeyFile {
         }
     }
 
+    KeyFile(){
+        this.fileName = "";
+        blocks = new ArrayList<BlockPair>();
+    }
 
 
     public void addKeyPair(Block block, String password)
@@ -72,5 +76,5 @@ public class KeyFile {
         FileIO out = new FileIO(name,"w");
         out.writeString(res);
     }
-    
+
 }
