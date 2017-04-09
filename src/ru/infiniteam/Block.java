@@ -1,8 +1,11 @@
 package ru.infiniteam;
 
+import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 
 import java.sql.Timestamp;
+
+import static ru.infiniteam.HashUtils.SHA3_512;
 
 /**
  * Created by ����� (actually t1meshift) on 08.04.2017.
@@ -17,6 +20,7 @@ public class Block implements java.io.Serializable
 
     Block(byte[] data,String prev_block_hash) {
         SHA3.DigestSHA3 data_hash = new SHA3.Digest512();
+        //MessageDigest
         data_hash.update(data);
 
         Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -36,8 +40,8 @@ public class Block implements java.io.Serializable
 
         this.timestamp = ts;
         this.data = data;
-        this.data_hash = data_hash.digest().toString();
-        this.block_hash = block_hash.digest().toString();
+        this.data_hash = HashUtils.hash(data, SHA3_512);
+        this.block_hash = HashUtils.hash(block_bytes, SHA3_512);
         this.prev_block_hash = prev_block_hash;
     }
 

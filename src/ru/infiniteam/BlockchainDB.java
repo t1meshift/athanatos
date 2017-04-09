@@ -16,12 +16,13 @@ public class BlockchainDB {
             Class.forName("org.sqlite.JDBC");
             this.conn = DriverManager.getConnection("jdbc:sqlite:"+filename); //DB file name
             statmt = conn.createStatement();
-            statmt.execute("CREATE TABLE if not exists 'blocks' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT UNIQUE KEY, 'prev_block_hash' TEXT NOT NULL);");
+            statmt.execute("CREATE TABLE if not exists 'blocks' ('timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT NOT NULL, 'prev_block_hash' TEXT NOT NULL, 'idd' INTEGER PRIMARY KEY);");
 
         }
         catch(Exception e)
         {
             System.out.print(e.toString());
+            e.printStackTrace();
             System.exit(100);
         }
     }
@@ -46,6 +47,7 @@ public class BlockchainDB {
         catch (Exception e)
         {
             System.out.print(e.toString());
+            e.printStackTrace();
             System.exit(100);
         }
         return null; //filler for IDE
@@ -56,7 +58,7 @@ public class BlockchainDB {
 
         ResultSet rs = null;
         try {
-            rs = conn.createStatement().executeQuery("SELECT * FROM 'blocks' ORDER BY 'id' DESC LIMIT 1");
+            rs = conn.createStatement().executeQuery("SELECT * FROM 'blocks' ORDER BY 'idd' DESC LIMIT 1");
             Block result = null;
             while (rs.next())
             {
@@ -69,6 +71,7 @@ public class BlockchainDB {
             return result;
         } catch (Exception e) {
             System.out.print(e.toString());
+            e.printStackTrace();
             System.exit(100);
         }
         return null; //filler for IDE
@@ -78,9 +81,10 @@ public class BlockchainDB {
         try
         {
             Blob data = new SerialBlob(val.data);
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO 'blocks'('timestamp', 'data', 'data_hash', 'block_hash', 'prev_block_hash') VALUES(?,?,?,?,?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO 'blocks' ('timestamp', 'data', 'data_hash', 'block_hash', 'prev_block_hash') VALUES(?,?,?,?,?)");
             pstmt.setTimestamp(1,val.timestamp);
-            pstmt.setBlob(2, data);
+            //pstmt.setBlob(2, data);
+            pstmt.setBytes(2, val.data);
             pstmt.setString(3, val.data_hash);
             pstmt.setString(4, val.block_hash);
             pstmt.setString(5, val.prev_block_hash);
@@ -89,6 +93,7 @@ public class BlockchainDB {
         catch (Exception e)
         {
             System.out.print(e.toString());
+            e.printStackTrace();
             System.exit(100);
         }
     }
