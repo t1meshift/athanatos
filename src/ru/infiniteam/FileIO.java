@@ -57,6 +57,14 @@ public class FileIO {
         }
     }
 
+    public  void writeString(String input){
+        try {
+            file.writeUTF(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void close(){
         try {
             file.close();

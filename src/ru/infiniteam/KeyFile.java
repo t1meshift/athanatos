@@ -55,4 +55,10 @@ public class KeyFile {
         return result;
     }
 
+    public void printToFile(String name){
+        String res = toString();
+        FileIO out = new FileIO(name,"w");
+        out.writeString(res);
+    }
+
 }
