@@ -49,4 +49,20 @@ public class FileIO {
         return (bdata);
     }
 
+    public void writeChunk(byte[] data){
+        try {
+            file.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close(){
+        try {
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
