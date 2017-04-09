@@ -13,17 +13,21 @@ public class NetNode {
             NetServer srv = new NetServer(Constants.PORT);
             srv.establish();
             while (!isInterrupted()){
-                Block t = srv.receiveBlock();
-                //записать блок в базу
+                srv.receiveCmds(); //TODO REWRITE THIS MODULE
             }
         }
     }
 
     public class ClientThread extends Thread {
+        private String ip;
+        ClientThread(String ip)
+        {
+            this.ip = ip;
+        }
         @Override
         public void run() {
-            NetClient clt = new NetClient("PLACEHOLDER", PORT);
-            //TODO client thread
+            NetClient clt = new NetClient(ip, PORT);
+            clt.connect();
 
         }
     }

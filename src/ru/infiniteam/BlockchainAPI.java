@@ -3,6 +3,7 @@ package ru.infiniteam;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -10,13 +11,13 @@ import org.bouncycastle.crypto.params.ParametersWithIV;
 import org.bouncycastle.jcajce.provider.digest.SHA3.DigestSHA3;
 import org.bouncycastle.jcajce.provider.digest.SHA3.Digest512;
 
-import static ru.infiniteam.Crypto.*;
 /**
  * Created by t1meshft on 07.04.2017.
  */
 
 public class BlockchainAPI
 {
+    private static NetNode net = new NetNode();
     void downloadFile(KeyFile file)
     {
         /*
@@ -51,16 +52,15 @@ public class BlockchainAPI
             //************************************************
 
             //TODO encrypt (AES)
-            String key = "FIXME"; //FIXME key MUST be generated as a random string in range [0-9,A-Z,a-z] SecureRandom!!!!!!!!!!
-
-            CipherParameters params = new ParametersWithIV(
-                    new KeyParameter( key.getBytes() ),
-                    "FEDCBA9876543210".getBytes()
-            );
-            //dunno about second IV parameter, TODO check it out
 
             try {
-                byte[] encryptedData = AES.encrypt(params, data);
+                int length = new Random().nextInt(49)+16; //[16; 64] bounds
+                String key = Crypto.generatePassword(length);
+                CipherParameters params = new ParametersWithIV(
+                        new KeyParameter( key.getBytes() ),
+                        "FEDCBA9876543210".getBytes() //FIXME static IV
+                );
+                byte[] encryptedData = Crypto.AES.encrypt(params, data);
             } catch (Exception e){}
 
             //**************************************************

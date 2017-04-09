@@ -43,11 +43,9 @@ public class Crypto {
         }
     }
 
-    private static char[] VALID_CHARACTERS =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456879".toCharArray();
-
-    // cs = cryptographically secure
-    public static String csRandomAlphaNumericString(int numChars) {
+    public static String generatePassword(int numChars) {
+        final char[] VALID_CHARACTERS =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456879!_-=".toCharArray();
         SecureRandom srand = new SecureRandom();
         Random rand = new Random();
         char[] buff = new char[numChars];
