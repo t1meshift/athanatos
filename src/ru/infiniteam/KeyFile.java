@@ -63,7 +63,7 @@ public class KeyFile {
 
     public KeyFile readFromFile(String file){
         KeyFile res = null;
-        FileIO in = new FileIO(file,"in");
+        FileIO in = new FileIO(file,"r");
         this.fileName = in.readString();
         for (BlockPair currBlock : blocks)
         {
