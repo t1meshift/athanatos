@@ -21,7 +21,6 @@ public class BlockchainDB {
         }
         catch(Exception e)
         {
-            System.out.print(e.toString());
             e.printStackTrace();
             System.exit(100);
         }
@@ -30,7 +29,8 @@ public class BlockchainDB {
         try
         {
             // yeah, it has SQL inject vuln, but who cares, Mr. Klenin? I was writing that code at 5:30am.
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * from 'blocks' WHERE 'block_hash' = " + key);
+            System.out.println(key);
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * from 'blocks' WHERE 'block_hash' = '" + key + "'");
             Block result = null;
             while (rs.next())
             {
@@ -46,7 +46,6 @@ public class BlockchainDB {
         }
         catch (Exception e)
         {
-            System.out.print(e.toString());
             e.printStackTrace();
             System.exit(100);
         }
@@ -62,15 +61,15 @@ public class BlockchainDB {
             Block result = null;
             while (rs.next())
             {
+                //rs.
                 Timestamp ts = rs.getTimestamp("timestamp");
-                Blob dataBlob = rs.getBlob("data");
-                int dataBlobLength = (int) dataBlob.length();
+                byte[] dataBlob = rs.getBytes("data");
+                System.out.println("GOT BLOB: "+new String(dataBlob));
                 String dataHash = rs.getString("data_hash");
-                result = new Block(ts, dataBlob.getBytes(1, dataBlobLength), dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
+                result = new Block(ts, dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
             }
             return result;
         } catch (Exception e) {
-            System.out.print(e.toString());
             e.printStackTrace();
             System.exit(100);
         }
@@ -80,10 +79,8 @@ public class BlockchainDB {
         //This function must write row with key (block_id)
         try
         {
-            Blob data = new SerialBlob(val.data);
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO 'blocks' ('timestamp', 'data', 'data_hash', 'block_hash', 'prev_block_hash') VALUES(?,?,?,?,?)");
             pstmt.setTimestamp(1,val.timestamp);
-            //pstmt.setBlob(2, data);
             pstmt.setBytes(2, val.data);
             pstmt.setString(3, val.data_hash);
             pstmt.setString(4, val.block_hash);
@@ -92,9 +89,44 @@ public class BlockchainDB {
         }
         catch (Exception e)
         {
-            System.out.print(e.toString());
             e.printStackTrace();
             System.exit(100);
         }
+    }
+
+    Block getGenesis()
+    {
+        ResultSet rs = null;
+        try {
+            rs = conn.createStatement().executeQuery("SELECT * FROM 'blocks' WHERE 'prev_block_hash' = '0'");
+            Block result = null;
+            while (rs.next())
+            {
+                Timestamp ts = rs.getTimestamp("timestamp");
+                byte[] dataBlob = rs.getBytes("data");
+                String dataHash = rs.getString("data_hash");
+                String blockHash = rs.getString("block_hash");
+                System.out.println("GOT GENESIS HASH: "+blockHash);
+                result = new Block(ts, dataBlob, dataHash, blockHash, "0");
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(100);
+        }
+        return null;
+    }
+
+    int makeGenesis(byte[] data) {
+
+        Block foundGenesis = getGenesis();
+        if (foundGenesis == null)
+        {
+            //System.out.println(foundGenesis.data);
+            Block genesis = new Block(data);
+            writeValue(genesis);
+            return 0; //success
+        }
+        return -1; //fail
     }
 }

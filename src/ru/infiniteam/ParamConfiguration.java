@@ -12,9 +12,12 @@ public class ParamConfiguration {
     public static String serverIP;
     public static String pathToVault;
 
-    void set(){}
+    void set(Preferences prefs){
+
+    }
     public  void load() {
         Preferences prefs = Preferences.userRoot();
+
         posXMainWindow = prefs.getInt("posXMainWindow", 0);
         posYMainWindow = prefs.getInt("posYMainWindow", 0);
         widthMainWindow = prefs.getInt("widthMainWindow", 899);
@@ -22,7 +25,7 @@ public class ParamConfiguration {
         serverIP = prefs.get("serverIP", "10.193.57.253");
         pathToVault = prefs.get("pathToVault", "");
 
-        set();
+        set(prefs);
     }
     public static void saveBounds(JFrame frame) {
         Rectangle frameBounds = frame.getBounds();

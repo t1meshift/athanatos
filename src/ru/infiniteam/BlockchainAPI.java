@@ -36,17 +36,18 @@ public class BlockchainAPI
         //BlockchainDB db = DBManager.get();
         for (KeyFile.BlockPair currKey : keys)
         {
-            final Block block = db.readValue(currKey.block_hash);
+            final Block[] block = {db.readValue(currKey.block_hash)};
             final boolean[] done = {false};
-            if (block == null)
+            if (block[0] == null)
             {
                 Listener l = new Listener(){
                    public void received(Connection c, Object o)
                    {
                         if (o != null)
                         {
-                            Block bl = (Block) o;
+                            block[0] = (Block) o;
                             done[0] = true;
+                            c.removeListener(this);
                         }
                    }
                 };
@@ -63,8 +64,8 @@ public class BlockchainAPI
                     Thread.sleep(5000);}
                 catch(Exception e){}
 
-                net.clt1.removeListener(l);
-                net.clt2.removeListener(l);
+                //net.clt1.removeListener(l);
+                //net.clt2.removeListener(l);
             }
             byte[] decrypted = {};
             try {
@@ -73,7 +74,7 @@ public class BlockchainAPI
                         new KeyParameter( currKey.password.getBytes() ),
                         "FEDCBA9876543210".getBytes() //FIXME static IV
                 );
-                decrypted = Crypto.AES.decrypt(params, block.data);
+                decrypted = Crypto.AES.decrypt(params, block[0].data);
             } catch (Exception e){}
 
             save.writeChunk(decrypted);
@@ -135,6 +136,7 @@ public class BlockchainAPI
                     c.sendTCP(NetPacket.getBlock(got.prev_block_hash));
                 } else {
                     done[0] = true;
+                    c.removeListener(this);
                 }
             }
         };
@@ -149,7 +151,7 @@ public class BlockchainAPI
         {
             db.writeValue(finalBlocks1.pop());
         }
-        net.clt1.removeListener(l1);
+        //net.clt1.removeListener(l1);
 
         blocks = new Stack<>();
         done[0] = false;
@@ -177,6 +179,6 @@ public class BlockchainAPI
         {
             db.writeValue(finalBlocks.pop());
         }
-        net.clt2.removeListener(l1);
+        //net.clt2.removeListener(l1);
     }
 }

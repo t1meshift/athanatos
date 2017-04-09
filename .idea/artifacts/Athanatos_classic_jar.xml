@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Athanatos-classic:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Athanatos_classic_jar</output-path>
+    <root id="archive" name="Athanatos-classic.jar">
+      <element id="module-output" name="Athanatos-classic" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/guava-21.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/kryonet-2.21-all.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/bcprov-ext-jdk15on-156.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/sqlite-jdbc-3.16.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
