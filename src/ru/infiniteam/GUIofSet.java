@@ -25,6 +25,7 @@ public class GUIofSet {
         Path_Panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         new ParamConfiguration().load();
         textField1.setText(ParamConfiguration.pathToVault);
+        textField2.setText(ParamConfiguration.serverIP);
         tempPath = textField1.getText();
         tempIP = textField2.getText();
 

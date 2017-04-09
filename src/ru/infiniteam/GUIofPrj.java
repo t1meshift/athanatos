@@ -27,7 +27,7 @@ public class GUIofPrj {
         BtnInitialize(Download);
         BtnInitialize(Settings);
 
-        Buttons.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.GRAY));
+       // Buttons.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.GRAY));
         Main_Panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY));
 
         new ParamConfiguration().load();
@@ -35,6 +35,28 @@ public class GUIofPrj {
                 ParamConfiguration.posYMainWindow,
                 ParamConfiguration.widthMainWindow,
                 ParamConfiguration.heightMainWindow);
+
+        JMenuBar menubar = new JMenuBar();
+        JMenu help = new JMenu("Help");
+        menubar.add(help);
+        JMenuItem about = new JMenuItem("About");
+        help.add(about);
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jfrm, "Thank you for chosen our soft to use. \n" +
+                        "We are so sorry, that you have to see it. \n" +
+                        "Our team consist of 5 people: \n" +
+                        "Yury Kurlykov, \n" +
+                        "Boris Timofeenko, \n" +
+                        "Diana Rusak, \n" +
+                        "Bogdan Kalnysh, \n" +
+                        "Glushkov Vladimir.");
+            }
+        });
+
+
+        jfrm.setJMenuBar(menubar);
         jfrm.setVisible(true);
 
         Upload.addActionListener(new ActionListener() {
