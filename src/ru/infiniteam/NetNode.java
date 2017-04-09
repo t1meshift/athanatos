@@ -65,6 +65,11 @@ public class NetNode {
                         case "getLastBlock":
                             block = db.lastValue();
                             c.sendTCP(block);
+                            break;
+                        case "uploadBlock":
+                            block = (Block) req.argument;
+                            db.writeValue(block);
+                            break;
                     }
                 }
             });
@@ -76,4 +81,5 @@ public class NetNode {
             System.exit(-1);
         }
     }
+
 }
