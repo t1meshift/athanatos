@@ -10,8 +10,8 @@ public class NetNode {
     public class ServerThread extends Thread {
         @Override
         public void run() {
-            NetServer srv = new NetServer(Constants.PORT);
-            srv.establish();
+            ClientServer srv = new ClientServer(Constants.PORT);
+            srv.serverEstablish();
             while (!isInterrupted()){
                 srv.receiveCmds(); //TODO REWRITE THIS MODULE
             }
@@ -26,8 +26,8 @@ public class NetNode {
         }
         @Override
         public void run() {
-            NetClient clt = new NetClient(ip, PORT);
-            clt.connect();
+            ClientServer clt = new ClientServer(ip, PORT);
+            clt.clientConnect();
 
         }
     }
