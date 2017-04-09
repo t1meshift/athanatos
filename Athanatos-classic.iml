@@ -12,7 +12,6 @@
     <orderEntry type="library" name="sqlite-jdbc" level="project" />
     <orderEntry type="library" name="jasypt" level="project" />
     <orderEntry type="library" name="kryonet" level="project" />
-    <orderEntry type="library" name="kryonet (2)" level="project" />
     <orderEntry type="library" name="guava-21.0" level="project" />
   </component>
 </module>
