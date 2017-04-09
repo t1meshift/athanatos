@@ -65,7 +65,8 @@ public class KeyFile {
         KeyFile res = null;
         FileIO in = new FileIO(file,"r");
         this.fileName = in.readString();
-        for (BlockPair currBlock : blocks)
+        int i = Integer.parseInt(in.readString());
+        for (int j = 0; i < i; ++j)
         {
             String t = in.readString();
             String s1 = t.split(" ")[0];
