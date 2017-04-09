@@ -19,9 +19,9 @@ public class KeyFile {
         }
     }
 
-    KeyFile(String fileName)
+    KeyFile(String inputFileName)
     {
-        FileIO in = new FileIO(fileName,"r");
+        FileIO in = new FileIO(inputFileName,"r");
         this.fileName = in.readString();
         int i = Integer.parseInt(in.readString());
         for (int j = 0; i < i; ++j)
