@@ -17,8 +17,8 @@ public class ParamConfiguration {
         Preferences prefs = Preferences.userRoot();
         posXMainWindow = prefs.getInt("posXMainWindow", 0);
         posYMainWindow = prefs.getInt("posYMainWindow", 0);
-        widthMainWindow = prefs.getInt("widthMainWindow", 240);
-        heightMainWindow = prefs.getInt("heightMainWindow", 400);
+        widthMainWindow = prefs.getInt("widthMainWindow", 899);
+        heightMainWindow = prefs.getInt("heightMainWindow", 329);
         serverIP = prefs.get("serverIP", "10.193.57.253");
         pathToVault = prefs.get("pathToVault", "");
 
