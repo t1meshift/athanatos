@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Created by t1meshft on 08.04.2017.
  */
 public class KeyFile {
-    private String fileName; //имя зашифрованного файла
-    private ArrayList<BlockPair> blocks;
+    public String fileName; //имя зашифрованного файла
+    public ArrayList<BlockPair> blocks;
 
     class BlockPair {
         public String block_hash;
@@ -24,7 +24,7 @@ public class KeyFile {
         FileIO in = new FileIO(inputFileName,"r");
         this.fileName = in.readString();
         int i = Integer.parseInt(in.readString());
-        for (int j = 0; i < i; ++j)
+        for (int j = 0; j < i; ++j)
         {
             String t = in.readString();
             String s1 = t.split(" ")[0];

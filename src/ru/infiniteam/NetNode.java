@@ -11,23 +11,22 @@ import static ru.infiniteam.Constants.*;
  * Created by Boris (rewrited by t1meshift) on 08.04.2017.
  */
 public class NetNode {
-
-    final private Listener listener = new Listener(){
-        public void received(Connection c, Object o)
-        {
-            //TODO SAVE RESULT TO VARIABLE
-        }
-    };
     public Server srv;
-    public ArrayList<Client> clts;
+    public Client clt1, clt2;
 
 
     NetNode(int port){
         srv = new Server();
         srv.start();
-        clts.add(new Client());
-        clts.get(0).start();
-        //TODO connect to host in settings
+        clt1 = new Client();
+        clt1.start();
+        try {
+            clt1.connect(TIMEOUT_MS, SERVER_ADDR, port);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try
         {
             srv.bind(port);
@@ -37,11 +36,11 @@ public class NetNode {
                 public void connected(Connection c)
                 {
                     InetSocketAddress addr = c.getRemoteAddressTCP();
-                    clts.add(new Client());
-                    clts.get(clts.size()-1).start();
+                    clt2 = new Client();
+                    clt2.start();
                     try {
-                        clts.get(clts.size() - 1).connect(TIMEOUT_MS, addr.getHostString(), port);
-                        clts.get(clts.size() - 1).addListener(listener);
+                        clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
+                        //clts.get(clts.size() - 1).addListener(listener);
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.exit(-1);
@@ -58,9 +57,11 @@ public class NetNode {
                             block = db.readValue((String) req.packet);
                             if (block != null)
                                 c.sendTCP(block);
-                            else
+                            else {
                                 BlockchainAPI.sync();
                                 //NOT SYNCED
+                                c.sendTCP(null);
+                            }
                             break;
                         case "getLastBlock":
                             block = db.lastValue();
@@ -81,5 +82,7 @@ public class NetNode {
             System.exit(-1);
         }
     }
+
+
 
 }
