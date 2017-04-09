@@ -7,12 +7,12 @@ import static ru.infiniteam.Constants.*;
 public class Main {
 
     public static void main(String[] args) {
-        NetNode node1 = new NetNode("");
+        NetNode node1 = new NetNode("10.193.57.253");
         byte[] test = {9,8};
         Block t = new Block(test);
         node1.clt.uploadBlock(t);
 
-        NetNode node2 = new NetNode("");
+        //NetNode node2 = new NetNode("");
 
         /*
         //test server
