@@ -7,13 +7,18 @@ import static ru.infiniteam.Constants.*;
  */
 public class NetNode {
 
+    public ClientServer srv;
+    public ClientServer clt;
+
     public class ServerThread extends Thread {
         @Override
         public void run() {
-            ClientServer srv = new ClientServer(Constants.PORT);
+            srv = new ClientServer(Constants.PORT);
             srv.serverEstablish();
             while (!isInterrupted()){
-                srv.receiveCmds(); //TODO REWRITE THIS MODULE
+                Block b = srv.receiveBlock();
+                byte t = b.data[0];
+                System.out.println(b); //TODO REWRITE THIS MODULE
             }
         }
     }
@@ -26,14 +31,15 @@ public class NetNode {
         }
         @Override
         public void run() {
-            ClientServer clt = new ClientServer(ip, PORT);
+            clt = new ClientServer(ip, PORT);
             clt.clientConnect();
-
         }
     }
 
-    NetNode(){
-        ServerThread srv = new ServerThread();
-        srv.start();
+    NetNode(String address){
+        ServerThread srvtrd = new ServerThread();
+        srvtrd.start();
+        ClientThread clttrd = new ClientThread(address);
+        clttrd.start();
     }
 }
