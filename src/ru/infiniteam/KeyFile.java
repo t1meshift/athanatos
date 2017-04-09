@@ -21,8 +21,20 @@ public class KeyFile {
 
     KeyFile(String fileName)
     {
-        this.fileName = fileName;
+        FileIO in = new FileIO(fileName,"r");
+        this.fileName = in.readString();
+        int i = Integer.parseInt(in.readString());
+        for (int j = 0; i < i; ++j)
+        {
+            String t = in.readString();
+            String s1 = t.split(" ")[0];
+            String s2 = t.split(" ")[1];
+            BlockPair bt = new BlockPair(s1,s2);
+            this.blocks.add(bt);
+        }
     }
+
+
 
     public void addKeyPair(Block block, String password)
     {
