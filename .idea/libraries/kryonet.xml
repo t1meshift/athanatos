@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="kryonet">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/kryonet-2.21-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

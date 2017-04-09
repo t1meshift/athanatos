@@ -50,6 +50,29 @@ public class BlockchainDB {
         }
         return null; //filler for IDE
     }
+    Block lastValue()
+    {
+        //SELECT last_insert_rowid()
+
+        ResultSet rs = null;
+        try {
+            rs = conn.createStatement().executeQuery("SELECT * FROM 'blocks' ORDER BY 'id' DESC LIMIT 1");
+            Block result = null;
+            while (rs.next())
+            {
+                Timestamp ts = rs.getTimestamp("timestamp");
+                Blob dataBlob = rs.getBlob("data");
+                int dataBlobLength = (int) dataBlob.length();
+                String dataHash = rs.getString("data_hash");
+                result = new Block(ts, dataBlob.getBytes(1, dataBlobLength), dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
+            }
+            return result;
+        } catch (Exception e) {
+            System.out.print(e.toString());
+            System.exit(100);
+        }
+        return null; //filler for IDE
+    }
     void writeValue(Block val){
         //TODO This function must write row with key (block_id)
         try
