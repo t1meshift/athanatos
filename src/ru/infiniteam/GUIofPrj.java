@@ -44,14 +44,13 @@ public class GUIofPrj {
         about.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jfrm, "Thank you for chosen our soft to use. \n" +
-                        "We are so sorry, that you have to see it. \n" +
-                        "Our team consist of 5 people: \n" +
-                        "Yury Kurlykov, \n" +
-                        "Boris Timofeenko, \n" +
-                        "Diana Rusak, \n" +
-                        "Bogdan Kalnysh, \n" +
-                        "Glushkov Vladimir.");
+                JOptionPane.showMessageDialog(jfrm, "Thank you for choosing our software! \n" +
+                        "Developed by: \n" +
+                        "Yury Kurlykov — Project Owner, Backend Developer, \n" +
+                        "Boris Timofeenko — Project Manager, Backend Developer\n" +
+                        "Diana Rusak — Designer\n" +
+                        "Bogdan Kalnysh — Tester \n" +
+                        "Glushkov Vladimir — Frontend Developer, Designer, ");
             }
         });
 
