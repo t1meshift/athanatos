@@ -23,11 +23,10 @@ public class FileIO {
     boolean isEOF()
     {
         boolean result = true;
-        try
-        {
-            result = file.getFilePointer() >= file.length();
+        try {
+            result = (this.file.getFilePointer() >= this.file.length());
+        } catch (IOException e) {
         }
-        catch (Exception e){}
         return result;
     }
 
@@ -59,7 +58,7 @@ public class FileIO {
 
     public  void writeString(String input){
         try {
-            file.writeUTF(input);
+            file.writeBytes(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +66,7 @@ public class FileIO {
 
     public String readString(){
         try {
-            return(file.readUTF());
+            return(file.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }

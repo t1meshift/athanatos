@@ -21,6 +21,7 @@ public class KeyFile {
 
     KeyFile(String inputFileName)
     {
+        blocks = new ArrayList<BlockPair>();
         FileIO in = new FileIO(inputFileName,"r");
         this.fileName = in.readString();
         int i = Integer.parseInt(in.readString());
@@ -73,8 +74,9 @@ public class KeyFile {
 
     public void printToFile(String name){
         String res = toString();
-        FileIO out = new FileIO(name,"w");
+        FileIO out = new FileIO(name,"rw");
         out.writeString(res);
+        out.close();
     }
 
 }

@@ -10,7 +10,6 @@
     <orderEntry type="library" name="BouncyCastle" level="project" />
     <orderEntry type="library" name="BouncyCastle" level="project" />
     <orderEntry type="library" name="sqlite-jdbc" level="project" />
-    <orderEntry type="library" name="jasypt" level="project" />
     <orderEntry type="library" name="kryonet" level="project" />
     <orderEntry type="library" name="guava-21.0" level="project" />
   </component>

@@ -8,5 +8,5 @@ public class Constants {
     public static final int BLOCK_SIZE = 16*1024; //16K for each block
     public static final String DB_NAME = "storage.db";
     public static final int TIMEOUT_MS = 5000;
-    public static final String SERVER_ADDR = "127.0.0.1";
+    public static final String SERVER_ADDR = "13.37.14.88";
 }
