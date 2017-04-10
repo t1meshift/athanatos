@@ -152,7 +152,7 @@ public class BlockchainAPI
 
     static void sync()
     {
-        return; //lol'd
+        /*
         Stack<Block> blocks = new Stack<>();
         final boolean[] done = {false};
         Stack<Block> finalBlocks1 = blocks;
@@ -219,5 +219,6 @@ public class BlockchainAPI
             System.out.println("client only?");
         }
         //net.clt2.removeListener(l1);
+        */
     }
 }
