@@ -58,4 +58,12 @@ public class Block implements java.io.Serializable
         this.block_hash = block_hash;
         this.prev_block_hash = prev_block_hash;
     }
+    public String toString()
+    {
+        String res = timestamp.toString() + "\n" +
+                "Block hash '" + block_hash + "'" + "\n" +
+                "Prev. block hash '" + prev_block_hash + "'" + "\n" +
+                "Data hash '" + data_hash + "'" + "\n";
+        return res;
+    }
 }

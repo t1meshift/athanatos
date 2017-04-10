@@ -12,10 +12,10 @@ public class Main extends GUIofPrj{
         byte[] dataGenesis = pasta.readChunk();
         db.makeGenesis(dataGenesis);
         try {
-            Block newBlock = new Block("Чисти говно, блядь! На, чисти говно!".getBytes("UTF-8"), db.lastValue().block_hash);
+            Block newBlock = new Block("здроствуйте как маритават огурци".getBytes("UTF-8"), db.lastValue().block_hash);
             db.writeValue(newBlock);
+            db.DBG_getAllRows();
             String dataHash = newBlock.block_hash;
-            System.out.println("BLOCK 2ND HASH: "+dataHash);
             Block bl = db.readValue(dataHash);
             System.out.println(new String(bl.data));
         } catch (Exception e)
