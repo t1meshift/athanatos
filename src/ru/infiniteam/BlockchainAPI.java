@@ -158,8 +158,10 @@ public class BlockchainAPI
         Listener l1 = new Listener() {
             public void received(Connection c, Object o) {
                 Block got = (Block) o;
+                System.out.println(got.block_hash);
                 Block expected = db.lastValue();
-                if (got.block_hash != expected.block_hash) {
+                System.out.println(expected.block_hash);
+                if (got.block_hash != expected.block_hash && got.prev_block_hash != "0") {
                     finalBlocks1.push(got);
                     c.sendTCP(NetPacket.getBlock(got.prev_block_hash));
                 } else {
