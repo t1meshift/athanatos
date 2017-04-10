@@ -12,7 +12,7 @@ import static ru.infiniteam.HashUtils.SHA3_512;
  */
 public class Block implements java.io.Serializable
 {
-    protected Timestamp timestamp;
+    //protected Timestamp timestamp;
     protected byte[] data;
     protected String data_hash;
     protected String block_hash;
@@ -23,22 +23,22 @@ public class Block implements java.io.Serializable
         //MessageDigest
         data_hash.update(data);
 
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        //Timestamp ts = new Timestamp(System.currentTimeMillis());
         SHA3.DigestSHA3 block_hash = new SHA3.Digest512();
 
-        byte[] a = ts.toString().getBytes(); // TIMESTAMP
+        //byte[] a = ts.toString().getBytes(); // TIMESTAMP
         byte[] b = data_hash.digest(); // DATA_HASH
         byte[] c = prev_block_hash.getBytes(); //PREV_BLOCK_HASH
 
-        byte[] block_bytes = new byte[data.length + a.length + b.length + c.length];
+        byte[] block_bytes = new byte[data.length + b.length + c.length];
         System.arraycopy(data, 0, block_bytes, 0, data.length);
-        System.arraycopy(a, 0, block_bytes, data.length, a.length);
-        System.arraycopy(b, 0, block_bytes,data.length + a.length, b.length);
-        System.arraycopy(c, 0, block_bytes,data.length + a.length + b.length, c.length);
+        //System.arraycopy(a, 0, block_bytes, data.length, a.length);
+        System.arraycopy(b, 0, block_bytes,data.length , b.length);
+        System.arraycopy(c, 0, block_bytes,data.length +  b.length, c.length);
 
         block_hash.update(block_bytes);
 
-        this.timestamp = ts;
+        //this.timestamp = ts;
         this.data = data;
         this.data_hash = HashUtils.hash(data, SHA3_512);
         this.block_hash = HashUtils.hash(block_bytes, SHA3_512);
@@ -50,9 +50,9 @@ public class Block implements java.io.Serializable
         this(data, "0");
     }
 
-    Block(Timestamp timestamp, byte[] data, String data_hash, String block_hash, String prev_block_hash)
+    Block(byte[] data, String data_hash, String block_hash, String prev_block_hash)
     {
-        this.timestamp = timestamp;
+        //this.timestamp = timestamp;
         this.data = data;
         this.data_hash = data_hash;
         this.block_hash = block_hash;
@@ -60,13 +60,12 @@ public class Block implements java.io.Serializable
     }
     public String toString()
     {
-        String res = timestamp.toString() + "\n" +
-                "Block hash '" + block_hash + "'" + "\n" +
+        String res = "Block hash '" + block_hash + "'" + "\n" +
                 "Prev. block hash '" + prev_block_hash + "'" + "\n" +
                 "Data hash '" + data_hash + "'" + "\n";
         return res;
     }
     Block() {
-        this(null,null,null,null,null);
+        this(null,null,null,null);
     }
 }

@@ -16,7 +16,7 @@ public class BlockchainDB {
             Class.forName("org.sqlite.JDBC");
             this.conn = DriverManager.getConnection("jdbc:sqlite:"+filename); //DB file name
             statmt = conn.createStatement();
-            statmt.execute("CREATE TABLE if not exists 'blocks' ('timestamp' TIMESTAMP NOT NULL, 'data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT NOT NULL, 'prev_block_hash' TEXT NOT NULL, 'idd' INTEGER PRIMARY KEY);");
+            statmt.execute("CREATE TABLE if not exists 'blocks' ('data' BLOB NOT NULL, 'data_hash' TEXT NOT NULL, 'block_hash' TEXT NOT NULL, 'prev_block_hash' TEXT NOT NULL, 'idd' INTEGER PRIMARY KEY);");
 
         }
         catch(Exception e)
@@ -37,10 +37,10 @@ public class BlockchainDB {
             {
                 //wtf??? we have the only element with that hash
                 //but okaaaaaaay
-                Timestamp ts = rs.getTimestamp("timestamp");
+                //Timestamp ts = rs.getTimestamp("timestamp");
                 byte[] dataBlob = rs.getBytes("data");
                 String dataHash = rs.getString("data_hash");
-                result = new Block(ts, dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
+                result = new Block(dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
             }
             System.out.println("READVALUE END "+key);
             return result;
@@ -63,11 +63,11 @@ public class BlockchainDB {
             while (rs.next())
             {
                 //rs.
-                Timestamp ts = rs.getTimestamp("timestamp");
+                //Timestamp ts = rs.getTimestamp("timestamp");
                 byte[] dataBlob = rs.getBytes("data");
                 System.out.println("GOT BLOB: "+new String(dataBlob));
                 String dataHash = rs.getString("data_hash");
-                result = new Block(ts, dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
+                result = new Block(dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash"));
             }
             System.out.println("LASTVALUE END ");
             return result;
@@ -82,12 +82,12 @@ public class BlockchainDB {
         System.out.println("WRITEVALUE START "+val.block_hash);
         try
         {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO blocks (`timestamp`, `data`, `data_hash`, `block_hash`, `prev_block_hash`) VALUES(?,?,?,?,?)");
-            pstmt.setTimestamp(1,val.timestamp);
-            pstmt.setBytes(2, val.data);
-            pstmt.setString(3, val.data_hash);
-            pstmt.setString(4, val.block_hash);
-            pstmt.setString(5, val.prev_block_hash);
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO blocks (`data`, `data_hash`, `block_hash`, `prev_block_hash`) VALUES(?,?,?,?)");
+           // pstmt.setTimestamp(1,val.timestamp);
+            pstmt.setBytes(1, val.data);
+            pstmt.setString(2, val.data_hash);
+            pstmt.setString(3, val.block_hash);
+            pstmt.setString(4, val.prev_block_hash);
             pstmt.executeUpdate();
             System.out.println("WRITEVALUE END "+val.block_hash);
         }
@@ -107,12 +107,12 @@ public class BlockchainDB {
             rs = conn.createStatement().executeQuery("SELECT * FROM blocks WHERE prev_block_hash = 0");
             while (rs.next())
             {
-                Timestamp ts = rs.getTimestamp("timestamp");
+                //Timestamp ts = rs.getTimestamp("timestamp");
                 byte[] dataBlob = rs.getBytes("data");
                 String dataHash = rs.getString("data_hash");
                 String blockHash = rs.getString("block_hash");
                 System.out.println("GOT GENESIS HASH: "+blockHash);
-                result = new Block(ts, dataBlob, dataHash, blockHash, "0");
+                result = new Block(dataBlob, dataHash, blockHash, "0");
             }
             System.out.println("GET GENESIS END ");
             return result;
@@ -145,10 +145,10 @@ public class BlockchainDB {
             rs = conn.createStatement().executeQuery("SELECT * FROM blocks");
             while (rs.next())
             {
-                Timestamp ts = rs.getTimestamp("timestamp");
+                //Timestamp ts = rs.getTimestamp("timestamp");
                 byte[] dataBlob = rs.getBytes("data");
                 String dataHash = rs.getString("data_hash");
-                System.out.println(new Block(ts, dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash")).toString());
+                System.out.println(new Block(dataBlob, dataHash, rs.getString("block_hash"), rs.getString("prev_block_hash")).toString());
             }
             System.out.println("GET ALL END ");
         } catch (Exception e) {
