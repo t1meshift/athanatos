@@ -74,7 +74,7 @@ public class NetNode {
                     switch(req.packet)
                     {
                         case "getBlock":
-                            block = db.readValue((String) req.packet);
+                            block = db.readValue((String) req.argument);
                             if (block != null)
                                 c.sendTCP(block);
                             else {
