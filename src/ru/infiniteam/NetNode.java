@@ -39,7 +39,7 @@ public class NetNode {
                 public void connected(Connection c)
                 {
                     InetSocketAddress addr = c.getRemoteAddressTCP();
-                    if (clt2 == null) {
+                    if (clt2 == null && clt1.getRemoteAddressTCP() != addr) {
                         clt2 = new Client();
                         clt2.start();
                         clt2.getKryo().register(Block.class); //serialize Block
