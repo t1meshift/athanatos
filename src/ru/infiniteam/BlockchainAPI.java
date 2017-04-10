@@ -161,7 +161,11 @@ public class BlockchainAPI
                 System.out.println(got.block_hash);
                 Block expected = db.lastValue();
                 System.out.println(expected.block_hash);
-                if (got.block_hash != expected.block_hash && got.prev_block_hash != "0") {
+                if (got.prev_block_hash != "0")
+                {
+                    c.removeListener(this);
+                } else
+                if (got.block_hash != expected.block_hash) {
                     finalBlocks1.push(got);
                     c.sendTCP(NetPacket.getBlock(got.prev_block_hash));
                 } else {
@@ -173,7 +177,9 @@ public class BlockchainAPI
         Listener l2 = new Listener() {
             public void received(Connection c, Object o) {
                 Block got = (Block) o;
+                System.out.println(got.block_hash);
                 Block expected = db.lastValue();
+                System.out.println(expected.block_hash);
                 if (got.block_hash != expected.block_hash) {
                     finalBlocks1.push(got);
                     c.sendTCP(NetPacket.getBlock(got.prev_block_hash));
