@@ -20,6 +20,8 @@ public class NetNode {
         srv.start();
         clt1 = new Client();
         clt1.start();
+        clt1.getKryo().register(Block.class); //serialize Block
+        clt1.getKryo().register(NetPacket.class); //serialize NetPacket
         try {
             clt1.connect(TIMEOUT_MS, SERVER_ADDR, port);
         }
@@ -38,6 +40,8 @@ public class NetNode {
                     InetSocketAddress addr = c.getRemoteAddressTCP();
                     clt2 = new Client();
                     clt2.start();
+                    clt2.getKryo().register(Block.class); //serialize Block
+                    clt2.getKryo().register(NetPacket.class); //serialize NetPacket
                     try {
                         clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
                         //clts.get(clts.size() - 1).addListener(listener);
