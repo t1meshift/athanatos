@@ -17,7 +17,7 @@ public class NetPacket {
     }
     public static NetPacket getLastBlock()
     {
-        return new NetPacket("getLastBlock", null);
+        return new NetPacket("getLastBlock", "0");
     }
     public static NetPacket uploadBlock(Block block)
     {
