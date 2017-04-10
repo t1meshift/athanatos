@@ -11,6 +11,11 @@ public class NetPacket {
         this.packet = packet;
         this.argument = argument;
     }
+    NetPacket()
+    {
+        this.packet = null;
+        this.argument = null;
+    }
     public static NetPacket getBlock(String hash)
     {
         return new NetPacket("getBlock", hash);
