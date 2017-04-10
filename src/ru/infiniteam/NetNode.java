@@ -3,6 +3,7 @@ package ru.infiniteam;
 import com.esotericsoftware.kryonet.*;
 
 import java.net.InetSocketAddress;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import static ru.infiniteam.BlockchainAPI.sync;
@@ -19,10 +20,17 @@ public class NetNode {
     NetNode(int port){
         srv = new Server();
         srv.start();
+        srv.getKryo().register(Block.class); //serialize Block
+        srv.getKryo().register(NetPacket.class); //serialize NetPacket
+        srv.getKryo().register(byte[].class);
+        srv.getKryo().register(Timestamp.class);
         clt1 = new Client();
         clt1.start();
         clt1.getKryo().register(Block.class); //serialize Block
         clt1.getKryo().register(NetPacket.class); //serialize NetPacket
+        clt1.getKryo().register(byte[].class);
+        clt1.getKryo().register(Timestamp.class);
+
         try {
             clt1.connect(TIMEOUT_MS, SERVER_ADDR, port);
         }
@@ -33,8 +41,6 @@ public class NetNode {
         try
         {
             srv.bind(port);
-            srv.getKryo().register(Block.class); //serialize Block
-            srv.getKryo().register(NetPacket.class); //serialize NetPacket
             srv.addListener(new Listener(){
                 public void connected(Connection c)
                 {
@@ -44,6 +50,8 @@ public class NetNode {
                         clt2.start();
                         clt2.getKryo().register(Block.class); //serialize Block
                         clt2.getKryo().register(NetPacket.class); //serialize NetPacket
+                        clt2.getKryo().register(byte[].class);
+                        clt2.getKryo().register(Timestamp.class);
                         try {
                             System.out.println(addr.getHostString());
                             clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
