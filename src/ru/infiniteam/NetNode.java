@@ -80,7 +80,7 @@ public class NetNode {
                             else {
                                 sync();
                                 //NOT SYNCED
-                                c.sendTCP(null);
+                                //c.sendTCP(null);
                             }
                             break;
                         case "getLastBlock":
