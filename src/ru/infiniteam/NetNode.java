@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.*;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
+import static ru.infiniteam.BlockchainAPI.sync;
 import static ru.infiniteam.Constants.*;
 
 /**
@@ -38,20 +39,24 @@ public class NetNode {
                 public void connected(Connection c)
                 {
                     InetSocketAddress addr = c.getRemoteAddressTCP();
-                    clt2 = new Client();
-                    clt2.start();
-                    clt2.getKryo().register(Block.class); //serialize Block
-                    clt2.getKryo().register(NetPacket.class); //serialize NetPacket
-                    try {
-                        clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
-                        //clts.get(clts.size() - 1).addListener(listener);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.exit(-1);
+                    if (clt2 == null) {
+                        clt2 = new Client();
+                        clt2.start();
+                        clt2.getKryo().register(Block.class); //serialize Block
+                        clt2.getKryo().register(NetPacket.class); //serialize NetPacket
+                        try {
+                            System.out.println(addr.getHostString());
+                            clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
+                            //clts.get(clts.size() - 1).addListener(listener);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.exit(-1);
+                        }
                     }
                 }
                 public void received(Connection c, Object o)
                 {
+                    if (o.getClass() != NetPacket.class) return;
                     NetPacket req = (NetPacket) o;
                     BlockchainDB db = DBManager.get();
                     Block block;
@@ -62,7 +67,7 @@ public class NetNode {
                             if (block != null)
                                 c.sendTCP(block);
                             else {
-                                BlockchainAPI.sync();
+                                sync();
                                 //NOT SYNCED
                                 c.sendTCP(null);
                             }
