@@ -24,12 +24,14 @@ public class NetNode {
         srv.getKryo().register(NetPacket.class); //serialize NetPacket
         srv.getKryo().register(byte[].class);
         srv.getKryo().register(Timestamp.class);
+        srv.getKryo().register(java.util.Date.class);
         clt1 = new Client();
         clt1.start();
         clt1.getKryo().register(Block.class); //serialize Block
         clt1.getKryo().register(NetPacket.class); //serialize NetPacket
         clt1.getKryo().register(byte[].class);
         clt1.getKryo().register(Timestamp.class);
+        clt1.getKryo().register(java.util.Date.class);
 
         try {
             clt1.connect(TIMEOUT_MS, SERVER_ADDR, port);
@@ -52,6 +54,7 @@ public class NetNode {
                         clt2.getKryo().register(NetPacket.class); //serialize NetPacket
                         clt2.getKryo().register(byte[].class);
                         clt2.getKryo().register(Timestamp.class);
+                        clt2.getKryo().register(java.util.Date.class);
                         try {
                             System.out.println(addr.getHostString());
                             clt2.connect(TIMEOUT_MS, addr.getHostString(), port);
