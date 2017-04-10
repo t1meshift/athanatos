@@ -152,6 +152,7 @@ public class BlockchainAPI
 
     static void sync()
     {
+        return; //lol'd
         Stack<Block> blocks = new Stack<>();
         final boolean[] done = {false};
         Stack<Block> finalBlocks1 = blocks;
