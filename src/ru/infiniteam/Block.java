@@ -66,4 +66,7 @@ public class Block implements java.io.Serializable
                 "Data hash '" + data_hash + "'" + "\n";
         return res;
     }
+    Block() {
+        this(null,null,null,null,null);
+    }
 }
